@@ -8,7 +8,7 @@ node {
 node{
         stage ('Testing Stage') {
                 withMaven(maven : 'maven_3_6_3') {
-                    sh 'mvn test'
+                    sh 'mvn clean install'
                 }
         }
 }
