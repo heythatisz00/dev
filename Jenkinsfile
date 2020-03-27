@@ -1,25 +1,22 @@
-pipeline {
-    agent any 
-
-    stages {
-        stage(“Build”) { 
-
-            steps {
-                echo ‘building the application…’
-            }
+node {
+        stage ('Compile Stage') {
+                withMaven(maven : 'maven_3_6_3') {
+                    sh 'mvn clean compile'
+                }
         }
-
-        stage(“Test”) { 
-
-            steps {
-                echo ‘testing the application…’
-            }
+}
+node{
+        stage ('Testing Stage') {
+                withMaven(maven : 'maven_3_6_3') {
+                    sh 'mvn test'
+                }
         }
+}
 
-        stage(“Deploy”) { 
-            steps {
-                echo 'deploying the application...'
-            }
+node{
+        stage ('Deployment Stage') {
+                withMaven(maven : 'maven_3_6_3') {
+                    sh 'mvn deploy'
+                }
         }
     }
-}
